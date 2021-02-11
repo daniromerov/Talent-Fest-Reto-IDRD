@@ -8,9 +8,7 @@ const styles = StyleSheet.create({
   modal: {
     flex: 1,
     padding: 6,
-    fontFamily: "Arial",
-    textAlign: "center",
-    fontSize: 30,
+    fontFamily: "Lato",
   },
   title: {
     margin: 4,
@@ -19,7 +17,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
-  content: {
+  contents: {
     margin: 2,
     padding: 4,
     color: "000000",
@@ -32,7 +30,7 @@ const styles = StyleSheet.create({
     color: "000000",
     fontSize: 18,
     fontWeight: "regular",
-  }
+  },
 });
 
 const event = {
@@ -53,14 +51,13 @@ const handlePressButton = () => {
   swal(
     <View style={styles.modal}>
       <Text style={styles.title}>Te esperamos</Text>
-      <Text style={styles.container}>{event.name}</Text>
+      <Text style={styles.contents}>{event.name}</Text>
       <Text style={styles.spot}>{event.date}</Text>
     </View>,
     {
       icon: "success",
     }
   )
-
 }
 export default function Home({ navigation }) {
   return (
