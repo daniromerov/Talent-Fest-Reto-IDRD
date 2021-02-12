@@ -7,8 +7,10 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 
 export default function MiAgenda() {
+  const [loading, setLoading] = useState()
   const [state, setState] = useState([]);
   const [event, setEvent] = useState([])
+
   let markedDate = {};
 
   state.forEach((date) => {
@@ -18,8 +20,9 @@ export default function MiAgenda() {
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("@storage_Key");
+      console.log(jsonValue);
 
-      if(jsonValue){
+      if (jsonValue) {
         const eventsValues = JSON.parse(jsonValue);
         setState(eventsValues.map((dateEvent) => dateEvent.date));
         setEvent(eventsValues)
@@ -32,12 +35,20 @@ export default function MiAgenda() {
     }
   };
 
- 
 
-  useEffect(() => {getData()}, []);
+  useEffect( () => { 
+    
+    const algo = async () => {
+      await getData()
+    }
+    algo()
+   
+  }, []);
 
   return (
-    <ScrollView style={{ backgroundColor: 'white' }}>
+    <ScrollView style={{ backgroundColor: 'white' }}>{
+      console.log(event)
+    }
       <Calendar
         style={{ height: 280 }}
 
@@ -112,40 +123,86 @@ export default function MiAgenda() {
       <Container>
         <Content>
           {event &&
-          event.map((item, index) => {
-            // const idx = index.route.params.index;
-            // console.log(item.name);
-            // console.log(item.dateName);
-            return(
-            
-           
-              <Card style={{ flex: 1, flexDirection: 'row', borderRadius: 10, border: 0 }} key={index}>
-            <CardItem>
-              <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
-                <View style={{ backgroundColor: '#59FBDA', flex: 1, aspectRatio: 1, width: 70, borderRadius: 10 }}>
-                  <Text style={{ color: '#584799', fontWeight: 'bold', fontSize: 20, textAlign: 'center', marginTop: 5 }}>{item.dateName}</Text>
-                  <Text style={{ color: '#000', fontWeight: 'bold', fontSize: 18, textAlign: 'center', marginBottom: 5 }}>10</Text>
-                </View>
-              </View>
+            event.map((item, index) => {
+              // const idx = index.route.params.index;
+              // console.log(item.name);
+              // console.log(item.dateName);
+              return (
 
-              <View style={{ marginLeft: 20 }}>
+
+                <Card style={{ flex: 1, flexDirection: 'row', borderRadius: 10, border: 0 }} key={index}>
+                  <CardItem>
+                    <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
+                      <View style={{ backgroundColor: '#59FBDA', flex: 1, aspectRatio: 1, width: 70, borderRadius: 10 }}>
+                        <Text style={{ color: '#584799', fontWeight: 'bold', fontSize: 20, textAlign: 'center', marginTop: 5 }}>{item.dateName}</Text>
+                        {/* <Text style={{ color: '#000', fontWeight: 'bold', fontSize: 18, textAlign: 'center', marginBottom: 5 }}>10</Text> */}
+                      </View>
+                    </View>
+
+{/* 
+
+                    <Content style={{ marginLeft: 30, marginTop: -20, width: 300 }}>
+          <Text style={{ fontWeight: 600, fontSize: 20, color: '#584799' }}>
+          {dataEvents[idx].name}
+          </Text>
+          <Text>
+            {dataEvents[idx].details}
+          </Text>
+          <Text style={{ color: '#584799', fontSize: 15, fontWeight: '600', marginTop: 10 }}>
+            {dataEvents[idx].link}</Text>
+
+          <View style={{ flexDirection: 'row', marginTop: 20 }}>
+            <MaterialIcons name="place" size={15} color="#59FBDA" />
+            <Text style={{ width: 100 }}>
+              {dataEvents[idx].place}
+            </Text>
+            <MaterialIcons name="attach-money" size={15} color="#59FBDA" />
+            <Text style={{ width: 100 }}>
+              {dataEvents[idx].access}
+            </Text>
+            <MaterialIcons name="group" size={15} color="#59FBDA" />
+            <Text style={{ width: 100 }}>
+              {dataEvents[idx].audience}
+            </Text>
+          </View>
+
+        </Content> */}
+                    {/* <View style={{ marginLeft: 20 }}>
+              <MaterialIcons name="schedule" size={20} color="#584799" />
                 <Text style={{ color: '#000', fontWeight: 'bold', fontSize: 18, textAlign: 'center' }}>{item.name}</Text>
                 <MaterialIcons name="place" size={20} color="#584799" />
                 <Text>{item.hour1} <Image
                   style={{ width: 17, height: 22 }}
-                /> Online</Text>
-              </View>
+                /> {item.place}</Text>
+              </View> */}
 
-            </CardItem>
-          </Card>
 
-          )}
-            
-            
-          
-          )
-          }  
-         
+                    <View style={{ flexDirection: 'row', marginTop: 20 }}>
+                      <MaterialIcons name="schedule" size={15} color="#584799" />
+                      <Text style={{ width: 100 }}>
+                      {item.name}
+                      </Text>
+                      <MaterialIcons name="attach-money" size={15} color="#584799" />
+                      <Text style={{ width: 100 }}>
+                      {item.place}
+                      </Text>
+                      {/* <MaterialIcons name="group" size={15} color="#59FBDA" />
+                      <Text style={{ width: 100 }}>
+                        {dataEvents[idx].audience}
+                      </Text> */}
+                    </View>
+
+                  </CardItem>
+                </Card>
+
+              )
+            }
+
+
+
+            )
+          }
+
         </Content>
       </Container>
     </ScrollView>

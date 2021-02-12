@@ -56,7 +56,7 @@ const CardEvent = ({ objNavigate }) => {
         {dataEvents.map((events, index) => {
           console.log(events.place);
           return (
-            <ScrollView>
+            <ScrollView key={index}>
               <Card style={{ flex: 1, flexDirection: 'row', borderRadius: 20, border: 0 }}>
                 <CardItem>
                   <Left>
