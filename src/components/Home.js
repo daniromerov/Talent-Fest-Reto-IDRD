@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Font from 'expo-font';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Modal, Alert } from 'react-native';
@@ -93,7 +93,7 @@ useEffect( async () => {
   return (
     <ScrollView contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Content padder>
-        {dataEvents.map((events, index) => {
+        {dataEvents.length > 0 ? ( dataEvents.map((events, index) => {
           console.log(events.place);
           return (
             <ScrollView>
@@ -129,7 +129,7 @@ useEffect( async () => {
             </ScrollView>
           )
         }
-        ): null}
+        )): null}
 
       </Content>
     </ScrollView>
